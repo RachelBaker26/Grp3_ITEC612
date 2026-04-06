@@ -55,8 +55,9 @@ The preprocessing script standardizes all images to ensure consistency across th
 
 ### What the script does:
 - Converts all images to RGB format  
-- Crops images to a square format to reduce distortion  
-- Resizes images to 224 x 224 pixels  
+- Uses black letterbox padding (letterboxing) to maintain the original aspect ratio of faces, preventing feature distortion during resizing  
+- Resizes images to 224 x 224 pixels
+- Performs Min-Max Normalization, scaling pixel intensity values from the standard 0–255 range to a 0–1 float range to improve model convergence.
 - Preserves the original folder structure (train/test/validation and subject folders)  
 - Saves processed images into a new `processed_data/` directory  
 - Creates a zipped version of the processed dataset for download  
@@ -65,7 +66,8 @@ The preprocessing script standardizes all images to ensure consistency across th
 - Python  
 - Pillow  
 - tqdm  
-- Google Colab  
+- Google Colab
+- NumPy  
 
 ---
 
@@ -139,15 +141,22 @@ Download the processed dataset (`processed_data.zip`)
 1. R Baker updated README  
    - Updated project diary  
    - Added preprocessing script summary  
-   - Reorganized structure for clarity  
+   - Reorganized structure for clarity
+  
+### 04/05/26: Preprocessing Optimization
+1. R Baker refactored the preprocessing script to include black padding (aspect ratio preservation).
+   - Implemented 0–1 pixel normalization logic to meet assignment requirements.
+   - Fixed syntax errors and standardized GitHub workflow (branching/merging) for group collaboration.
+   - Verified normalized output values via NumPy array inspection.
+2. R Baker executed the final preprocessing pipeline and updated the repository with the final processed images
 
 ---
 
 ## Notes / Limitations
 - This is a closed-set system and will not generalize to unseen individuals  
 - Some subjects may have similar features, which could impact model accuracy  
-- Cropping and resizing may remove some image detail  
-- Image formats vary (.jpg, .png), but are standardized during preprocessing  
+- Image formats vary (.jpg, .png), but are standardized during preprocessing
+- While resizing reduces resolution, the use of LANCZOS filtering and aspect-ratio padding minimizes the loss of critical spatial features compared to standard bilinear stretching 
 
 ---
 
