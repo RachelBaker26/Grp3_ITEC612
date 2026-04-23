@@ -149,6 +149,47 @@ Download the processed dataset (`processed_data.zip`)
    - Fixed syntax errors and standardized GitHub workflow (branching/merging) for group collaboration.
    - Verified normalized output values via NumPy array inspection.
 2. R Baker executed the final preprocessing pipeline and updated the repository with the final processed images
+  
+### 04/05/26: Preprocessing Optimization
+1. R Baker refactored the preprocessing script to include black padding (aspect ratio preservation).
+
+### 04/13/26: Deliverable 2 Initial Pipeline Development  
+1. S Millett created first pass of Deliverable 2 notebook  
+   - Implemented initial face processing pipeline structure  
+   - Achieved ~75% functional completion (detection, preprocessing framework)  
+   - Identified issues with runtime errors and undetected faces  
+   - Added temporary error handling to allow execution on dataset  
+
+### 04/15/26: Notebook Update & Dataset Cleanup  
+1. S Millett upgraded preprocessing notebook to v3  
+   - Removed outdated notebook version (v1)  
+2. R Encarnacion cleaned dataset images  
+   - Removed invalid or duplicate images from training and processed datasets  
+   - Focused on improving data quality for Andy Samberg subject  
+
+### 04/16/26: Dataset Refinement & Image Replacement  
+1. R Encarnacion updated dataset across train/test/validation splits  
+   - Removed problematic images (e.g., low quality, detection failures)  
+   - Uploaded replacement images to improve dataset consistency  
+2. Continued cleanup across multiple subjects (Andy Samberg, Brad Pitt)  
+   - Ensured alignment with required dataset structure  
+
+### 04/17/26: Processed Data Reset  
+1. S Millett removed existing processed_data directory  
+   - Cleared outdated preprocessing outputs  
+2. Replaced processed data with updated outputs  
+   - Prepared for revised preprocessing pipeline execution  
+
+### 04/21/26: Preprocessing Iteration & Final Image Updates  
+1. S Millett iterated on preprocessing pipeline (multiple commits)  
+   - Incremental updates labeled preproc pt1, pt2, pt3  
+   - Added comments and debugging improvements  
+   - Created working replacement notebook (WIP)  
+   - Removed outdated processed test directory  
+
+2. R Baker curated and replaced dataset images  
+   - Uploaded new image sets for Deliverable 2  
+   - Replaced images causing detection/alignment issues  
 
 ---
 
