@@ -3,7 +3,7 @@
 Group 3: AI Facial Recognition Project  
 ITEC 612: Spring 2026  
 
-Steve Millett, Ronaldo Encarnacion, Rachel Baker, Tiffany Lam  
+Steve Millett, Ronaldo Encarnacion, Rachel Baker  
 Dr. Pampapura Madali  
 
 ---
@@ -39,11 +39,14 @@ Each subject includes approximately 15 images, typically split:
 
 ## Dataset Structure
 
-Raw images are stored in:
+Raw images are stored in:  
 `dataset/Facial_Recognition_[Train | Test | Val]/`
 
-Processed images are stored in:
+Processed images (Deliverable 1) are stored in:  
 `processed_data/Facial_Recognition_[Train | Test | Val]/`
+
+Aligned and pipeline-processed images (Deliverable 2) are stored in:  
+`preprocess_aligned_[Train | Test | Val]/`
 
 Each folder contains subfolders for each subject.
 
@@ -51,52 +54,99 @@ Each folder contains subfolders for each subject.
 
 ## Preprocessing Script Summary
 
-The preprocessing script standardizes all images to ensure consistency across the dataset before model training.
+The notebook `ITEC_612_Facial_Recognition_Preprocessing_Group3.ipynb` standardizes all images to ensure consistency across the dataset before model training.  
+
+The notebook `Group_Project_Deliverable_2_Face_Detection,_Extraction,_Alignment,_Preprocessing_&_Feature_ExtractionGroup3WIP.ipynb` implements the full face-processing pipeline, including detection, extraction, alignment, preprocessing, and feature (embedding) generation.
 
 ### What the script does:
+Deliverable 1: `ITEC_612_Facial_Recognition_Preprocessing_Group3.ipynb` 
 - Converts all images to RGB format  
 - Uses black letterbox padding (letterboxing) to maintain the original aspect ratio of faces, preventing feature distortion during resizing  
 - Resizes images to 224 x 224 pixels
 - Performs Min-Max Normalization, scaling pixel intensity values from the standard 0–255 range to a 0–1 float range to improve model convergence.
 - Preserves the original folder structure (train/test/validation and subject folders)  
 - Saves processed images into a new `processed_data/` directory  
-- Creates a zipped version of the processed dataset for download  
+- Creates a zipped version of the processed dataset for download
+  
+Deliverable 2:  `Group_Project_Deliverable_2_Face_Detection,_Extraction,_Alignment,_Preprocessing_&_Feature_ExtractionGroup3WIP.ipynb`
+- Output serves as the standardized input dataset for the Deliverable 2 face-processing pipeline  
+- Maintains consistent image formatting to support reliable face detection, alignment, and embedding generation  
+- Ensures reproducibility by applying the same preprocessing steps across all train, validation, and test images  
 
 ### Tools Used:
 - Python  
-- Pillow  
-- tqdm  
-- Google Colab
+- OpenCV (cv2)  
+- dlib (face detection + landmark model)  
+- face_recognition (embedding generation)  
 - NumPy  
+- matplotlib  
+- tqdm  
+- Pillow  
+- requests / zipfile (dataset handling in Colab)  
+- Google Colab  
 
 ---
 
 ## How to Run
 
-Open the script in Google Colab
+Open both notebooks in Google Colab and run them in order.
 
-Install dependencies:
+### Step 1: Install Dependencies
 
-```python
-!pip install Pillow tqdm
-```
+Run this in Colab:
 
-Clone the repository:
+`!pip install Pillow tqdm opencv-python dlib matplotlib face_recognition requests`
 
-```python
-!git clone https://github.com/RachelBaker26/Grp3_ITEC612/
-```
+### Step 2: Clone the Repository
 
-Navigate into the repo:
+Run this in Colab:
 
-```python
-import os
-os.chdir("Grp3_ITEC612")
-```
+`!git clone https://github.com/RachelBaker26/Grp3_ITEC612/`
 
-Run the preprocessing script
+### Step 3: Navigate into the Repository
 
-Download the processed dataset (`processed_data.zip`)
+Run this in Colab:
+
+`import os
+os.chdir("Grp3_ITEC612")`
+
+### Step 4: Deliverable 1 – Preprocessing
+
+Run the notebook:
+
+`ITEC_612_Facial_Recognition_Preprocessing_Group3.ipynb`
+
+This step:
+- Standardizes all images
+- Converts images to RGB
+- Resizes images to 224 x 224 pixels
+- Normalizes pixel values
+- Saves processed images to `processed_data/`
+- Creates `processed_data.zip`
+
+### Step 5: Deliverable 2 – Face Processing Pipeline
+
+Run the notebook:
+
+`Group_Project_Deliverable_2_Face_Detection,_Extraction,_Alignment,_Preprocessing_&_Feature_ExtractionGroup3WIP.ipynb`
+
+This step:
+- Uses `processed_data/` as input
+- Performs face detection
+- Extracts faces in memory
+- Aligns faces using eye landmarks
+- Applies final preprocessing
+- Saves aligned images to `preprocess_aligned/`
+- Generates `face_embeddings.npz`
+- Creates downloadable output files
+
+### Expected Outputs
+
+- `processed_data/`
+- `processed_data.zip`
+- `preprocess_aligned/`
+- `preprocess_aligned.zip`
+- `face_embeddings.npz`
 
 ---
 
@@ -189,19 +239,38 @@ Download the processed dataset (`processed_data.zip`)
 
 2. R Baker curated and replaced dataset images  
    - Uploaded new image sets for Deliverable 2  
-   - Replaced images causing detection/alignment issues  
+   - Replaced images causing detection/alignment issues
+  
+### 4/25/26: Dataset Refinement
+1. R Encarnacion replaced images
+   - 'no face detected' errors
+   - Duplicate images
+   - Update raw data folder
+2. S Millett reran the preprocessing and facial detection pipeline scripts
+   - Committed updated files to Git
+3. R Baker updated the readme file
+   - Updated log
+   - Removed T Lam from collaborators & readme
 
 ---
-
 ## Notes / Limitations
 - This is a closed-set system and will not generalize to unseen individuals  
 - Some subjects may have similar features, which could impact model accuracy  
-- Image formats vary (.jpg, .png), but are standardized during preprocessing
-- While resizing reduces resolution, the use of LANCZOS filtering and aspect-ratio padding minimizes the loss of critical spatial features compared to standard bilinear stretching 
+- Image formats vary (.jpg, .png), but are standardized during preprocessing  
+- While resizing reduces resolution, the use of LANCZOS filtering and aspect-ratio padding minimizes the loss of critical spatial features compared to standard bilinear stretching  
+- Some images do not contain detectable faces and are excluded during the Deliverable 2 pipeline  
+- Face alignment and embedding generation depend on landmark detection and may fail on low-quality or obstructed images  
 
 ---
 
 ## Current Status
-- Dataset collected and organized  
-- Preprocessing pipeline complete  
+- Dataset collected, cleaned, and organized into train/validation/test splits  
+- Preprocessing pipeline (Deliverable 1) complete  
+- Face-processing pipeline (Deliverable 2) implemented:
+  - Detection → Extraction → Alignment → Preprocessing → Embeddings  
+- Outputs generated:
+  - `processed_data/`
+  - `preprocess_aligned/`
+  - `face_embeddings.npz`  
+- Pipeline validated with visualization and error handling  
 - Ready for model training and evaluation
