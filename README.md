@@ -71,7 +71,19 @@ Deliverable 1: `ITEC_612_Facial_Recognition_Preprocessing_Group3.ipynb`
 Deliverable 2:  `Group_Project_Deliverable_2_Face_Detection,_Extraction,_Alignment,_Preprocessing_&_Feature_ExtractionGroup3WIP.ipynb`
 - Output serves as the standardized input dataset for the Deliverable 2 face-processing pipeline  
 - Maintains consistent image formatting to support reliable face detection, alignment, and embedding generation  
-- Ensures reproducibility by applying the same preprocessing steps across all train, validation, and test images  
+- Ensures reproducibility by applying the same preprocessing steps across all train, validation, and test images
+
+Deliverable 3:
+The final notebook `ITEC_612_Facial_Recognition_Final_Group3.ipynb` implements and evaluates four recognition methods using the 128-dimensional embeddings generated in the previous pipeline.
+- **K-Nearest Neighbors (KNN):** Uses a $k=3$ neighbor approach to match test embeddings against the training set.
+- **Logistic Regression:** Applies a supervised classification model with a regularization strength of $c=0.01$ for optimal stability.
+- **Support Vector Machine (SVM):** Implements a robust classifier using optimized kernels to separate high-dimensional feature vectors.
+- **Cosine Similarity Matching:** Identifies individuals by calculating the highest similarity score between the test vector and known training samples.
+
+### Tools Used:
+- Scikit-learn (SVM, KNN, Logistic Regression)
+- SciPy (Cosine Similarity)
+- Seaborn & Matplotlib (Confusion Matrices)
 
 ### Tools Used:
 - Python  
@@ -83,7 +95,10 @@ Deliverable 2:  `Group_Project_Deliverable_2_Face_Detection,_Extraction,_Alignme
 - tqdm  
 - Pillow  
 - requests / zipfile (dataset handling in Colab)  
-- Google Colab  
+- Google Colab
+- Scikit-learn (SVM, KNN, Logistic Regression)
+- SciPy (Cosine Similarity)
+- Seaborn & Matplotlib (Confusion Matrices
 
 ---
 
@@ -149,6 +164,19 @@ This step:
 - `face_embeddings.npz`
 
 ---
+
+### Step 6: Deliverable 3 – Model Training & Evaluation
+
+Run the notebook:
+
+`ITEC_612_Facial_Recognition_Final_Group3.ipynb`
+
+This step:
+- Loads `face_embeddings.npz`
+- Trains KNN, Logistic Regression, and SVM models
+- Executes Cosine Similarity matching
+- Generates Classification Reports and Confusion Matrices
+- Validates 100% accuracy across the closed-set test group
 
 ## Project Timeline / Development Log
 
@@ -251,7 +279,20 @@ This step:
 3. R Baker updated the readme file
    - Updated log
    - Removed T Lam from collaborators & readme
+     
+### 04/28/26 - 05/01/26: Model Development
+1. S Millett initiated the Deliverable 3 notebook and implemented initial SVM logic.
+2. R Baker refactored the pipeline using updated code to ensure standard processing.
+3. R Baker implemented KNN and Logistic Regression models.
 
+### 05/05/26: Integration & Cleanup
+1. S Millett integrated the final Cosine Similarity matching model.
+2. R Baker merged all models into the unified final notebook.
+3. R Baker performed repository maintenance, removing redundant preliminary notebooks.
+
+### 05/13/26: Final Evaluation & Reporting
+1. R Encarnacion authored sections on project ethics, introduction, and deliverable summaries.
+2. R Baker authored the technical methodology, results comparison, and conclusion.
 ---
 ## Notes / Limitations
 - This is a closed-set system and will not generalize to unseen individuals  
@@ -264,13 +305,10 @@ This step:
 ---
 
 ## Current Status
-- Dataset collected, cleaned, and organized into train/validation/test splits  
-- Preprocessing pipeline (Deliverable 1) complete  
-- Face-processing pipeline (Deliverable 2) implemented:
-  - Detection → Extraction → Alignment → Preprocessing → Embeddings  
-- Outputs generated:
-  - `processed_data/`
-  - `preprocess_aligned/`
-  - `face_embeddings.npz`  
-- Pipeline validated with visualization and error handling  
-- Ready for model training and evaluation
+- Dataset collected, cleaned, and organized into train/validation/test splits.
+- Preprocessing and face-processing pipelines complete.
+- **Model Training & Evaluation (Deliverable 3) complete:**
+  - KNN, SVM, Logistic Regression, and Cosine Similarity models implemented.
+  - Achieved 100% accuracy on test embeddings.
+  - All confusion matrices and performance metrics generated.
+- Project finalized and ready for submission.
